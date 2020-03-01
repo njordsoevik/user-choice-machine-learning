@@ -7,49 +7,56 @@ Created on Wed Feb  5 19:26:30 2020
 
 #import custom files
 import datasetAPI
+import twitterAPI
 import pandas as pd
-import sys
 import numpy as np
-import sns_graphing
-import torch_logistic
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 if __name__=="__main__":
-    #ticker=str(input("Which ticker do you want to analyse? ")).upper()
     ticker='MSFT'
-    key='8QMU1DNNWCWT1ZIA'
-    features=['OpenPrice','HighPrice','LowPrice','Volume','MACD']
+    
+    # User input
+    features=['OpenPrice','HighPrice','LowPrice','Volume','MACD','TwitterName']
     target=['ClosingPrice']
     
-    # Initialize class 
-    df = datasetAPI.Dataframe(key,ticker,features,target)
-    print('Raw Data: \n',df.rawData.head(5))
-    print(df.rawData.shape[0])
-    print('Features: \n',df.Features.sample(5))
-    print('Target: \n',df.Target.head(5))
+    # All features
+    stock_features=['OpenPrice','HighPrice','LowPrice','Volume','MACD','ClosingPrice']
+    twitter_names = ["Microsoft"] 
+            # Get Data
+    if any(feature in features for feature in stock_features):
+        df_stocks = datasetAPI.Dataframe(ticker,features,target)
+        print('Raw Data: \n',df_stocks.rawData.head(5))
+        print(df_stocks.rawData.shape[0])
+        '''
+        print('Features: \n',df.Features.head(5))
+        print('Target: \n',df.Target.head(5))
+        print('Predict: \n',df.Predict.head())
+        '''
+        
     
-    # Now have features, target, do modeling
-    
-    torch_logistic.logisticRegression(df.Features.to_numpy(),df.Target.to_numpy(),df.Predict.to_numpy())
-    
-    #print(df.rawData.to_numpy())
-    #sns_graphing.relplot(df.rawData)
-    
-    
-    '''
-    Drop first row of data and make prediction on it
-    https://towardsdatascience.com/understanding-pytorch-with-an-example-a-step-by-step-tutorial-81fc5f8c4e8e
-    https://hackernoon.com/linear-regression-in-x-minutes-using-pytorch-8eec49f6a0e2
-    '''
-    
+    if twitter_names:
+            # Modeling
+        Twit=twitterAPI.API(twitter_names)
+        print(Twit.df_twitter.head())
     
     
     
     
     
     
-    '''
+    
+'''
+
+       self.Predict=self.rawData.iloc[[0]].drop(self.target_input,axis=1)
+        
+        # Getting Target and shift up by one
+
+        self.Target = self.rawData[self.target_input].lt(self.rawData[self.target_input].shift()).astype(int)
+        self.Features=self.rawData.drop(self.target_input,axis=1)
+
+        self.Target = self.Target.iloc[1:]
+        self.Features = self.Features.iloc[1:]
     Notes:
         
         django: https://www.youtube.com/watch?v=pLN-OnXjOJg&list=PL-51WBLyFTg38qZ0KHkJj-paDQAAu9HiP
@@ -80,4 +87,4 @@ if __name__=="__main__":
             https://seaborn.pydata.org/tutorial/relational.html
             
             Melt can be useful for graphing all together
-    '''
+'''

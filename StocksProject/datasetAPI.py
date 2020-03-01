@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+b"""
 Spyder Editor
 
 This is a temporary script file.
@@ -8,9 +8,11 @@ import requests
 import pandas as pd
 import json as js
 import os
+import numpy as np
 
 class Dataframe:
-    def __init__(self,key,ticker,inputs,target_input):
+    def __init__(self,ticker,inputs,target_input):
+        key='8QMU1DNNWCWT1ZIA'
         stock_inputs_all=['OpenPrice','HighPrice','LowPrice','ClosingPrice','Volume']
         stock_indicator_inputs_all=['MACD']
         self.frames=[]
@@ -57,15 +59,7 @@ class Dataframe:
         # Drop NA values and create prediction row
         
         self.rawData.dropna(inplace=True)
-        self.Predict=self.rawData.iloc[[0]].drop(self.target_input,axis=1)
-        print(self.Predict,'HERE')
-        self.rawData.drop(self.rawData.index[0],inplace=True)
         
-        # Getting Target and shift up by one
-
-        self.Target = self.rawData[self.target_input].gt(self.rawData[self.target_input].shift()).astype(int)
-        self.Features=self.rawData.drop(self.target_input,axis=1)
-    
     def getPrices(self,inputs):
         print('Getting stock data for: {}'.format(inputs))
         resp = requests.get(r'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize=full&apikey={}'.format(self.ticker,self.key))
@@ -83,6 +77,8 @@ class Dataframe:
         # Filter by inputs
         # Save to CSV 
         for item in inputs:
+            dataframe[item]=dataframe[item].astype(float)
+            dataframe[item]=np.log(dataframe[item].values)
             print('Saving {}_{}.csv to file system!'.format(self.ticker,item))
             dataframe[item].to_csv('{}_{}.csv'.format(self.ticker,item))
             self.frames.append(dataframe[item])
@@ -122,4 +118,3 @@ def comparePrevious(x):
     else:
         return 0
 
-        
