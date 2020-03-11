@@ -6,8 +6,9 @@ User facing RestAPI built with flask and neural networks optimized and trained w
 
 ## Motivation
 1. With so many interesting data sources available online, I couldn't decide which data sources to commit a whole machine learning project to. 
-2. By allowing user input, the project exposes me to build an API (with Flask) and setting up a host for the API (AWS/Google Cloud).
-3. In addition, I wanted some flexibility on the user's side on which data sources they wanted to train their model on, and what data to predict.
+2. I wanted some flexibility on the user's side on which data sources they wanted to train their model on, and what data to predict.
+3. Instead of just outputting a prediction for the next X days, I want to provide the user to a trained model that they can use indefinitely.  
+3. By allowing user input, the project exposes me to build an API (with Flask) and setting up a host for the API (AWS/Google Cloud).
 
 ## Constraints
 1. Spare time. 
