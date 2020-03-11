@@ -1,7 +1,7 @@
 # user-choice-machine-learning
 
 ## Description
-This project will allow users to combine their choice of data sources, from Twitter posts to stock market indicators, and receive a trained neural network able to predict a chosen data indicator. 
+This project will allow users to combine their choice of data sources, from Twitter posts to stock market indicators, and receive a trained neural network able to predict a another chosen data indicator. 
 User facing RestAPI built with flask and neural networks optimized and trained with Pytorch.
 
 ## Motivation
