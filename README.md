@@ -20,13 +20,13 @@ User facing RestAPI built with flask and neural networks optimized and trained w
 ## API 
 ### User Input
 1. Features : Which data sources to combine and train PyTorch models. 
-2. Target: What data do you want the model to predict
+2. Target: The data to predict.
 
 ### API Output
-1. Trained PyTorch model 
+1. Trained PyTorch model.
 
 ## Current data sources
-1. Stock indicators with AlphaZero API
-2. Twitter with Twitter Developer API
-3. Instagram with Instagram Developer API
+1. Stock indicators with AlphaZero API.
+2. Twitter with Twitter Developer API.
+3. Instagram with Instagram Developer API.
 
